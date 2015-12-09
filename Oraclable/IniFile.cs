@@ -6,10 +6,7 @@ using System.Text;
 namespace Oraclable
 {
    
-
-// Change this to match your program's normal namespace
-namespace MyProg
-{
+ 
     class IniFile   // revision 10
     {
         string Path;
@@ -26,13 +23,18 @@ namespace MyProg
             Path = new FileInfo(IniPath ?? EXE + ".ini").FullName.ToString();
         }
 
-        public string Read(string Key, string Section )
+        public string Read(string Key, string Section)
         {
             var RetVal = new StringBuilder(255);
             GetPrivateProfileString(Section ?? EXE, Key, "", RetVal, 255, Path);
             return RetVal.ToString();
         }
-
+        public string Read(string Key)
+        {
+            var RetVal = new StringBuilder(255);
+            GetPrivateProfileString(null ?? EXE, Key, "", RetVal, 255, Path);
+            return RetVal.ToString();
+        }
         public void Write(string Key, string Value, string Section)
         {
             WritePrivateProfileString(Section ?? EXE, Key, Value, Path);
@@ -52,9 +54,13 @@ namespace MyProg
             Write(null, null, Section ?? EXE);
         }
 
-        public bool KeyExists(string Key, string Section )
+        public bool KeyExists(string Key, string Section)
         {
             return Read(Key, Section).Length > 0;
+        }
+        public bool KeyExists(string Key)
+        {
+            return Read(Key, null).Length > 0;
         }
 
         //internal void Write(string p, string p_2)
@@ -62,5 +68,5 @@ namespace MyProg
         //    throw new System.NotImplementedException();
         //}
     }
-}
+
 }
