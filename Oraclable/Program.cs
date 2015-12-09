@@ -25,13 +25,16 @@ namespace Oraclable
  
             if (!MyIni.KeyExists("PASSWORD"))
             {
-                MyIni.Write("PASSWORD", "******");
+                Console.WriteLine("Oracle Sifre:");
+                string pass = Console.ReadLine();
+                MyIni.Write("PASSWORD", pass);
             }
 
             var PASS = MyIni.Read("PASSWORD");
 
-            Console.WriteLine(PASS);
-
+            Console.WriteLine("Sifre Kaydedilmistir:    "+PASS);
+            
+            
             Console.ReadKey();
 //To read the values out of the INI file:
 
